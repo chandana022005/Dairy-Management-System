@@ -13,13 +13,13 @@ from routes.chatbot_routes import chatbot_bp
 
 app = Flask(__name__)
 
-# ✅ CORS Configuration - Allow web mode
+# ✅ CORS Configuration - Allow all origins for production
 CORS(app, resources={
     r"/*": {
-        "origins": ["http://localhost:19006", "http://localhost:8081", "http://127.0.0.1:19006", "http://127.0.0.1:8081"],
+        "origins": "*",
         "methods": ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
         "allow_headers": ["Content-Type", "Authorization"],
-        "supports_credentials": True
+        "supports_credentials": False
     }
 })
 
