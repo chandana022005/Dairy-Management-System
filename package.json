@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "expo-linear-gradient": "^15.0.7",
+    "formik": "^2.4.6",
+    "react-dom": "19.1.0",
+    "react-native-chart-kit": "^6.12.0",
+    "react-native-svg": "^15.14.0",
+    "react-native-web": "^0.21.0",
+    "yup": "^1.7.1"
+  }
+}
