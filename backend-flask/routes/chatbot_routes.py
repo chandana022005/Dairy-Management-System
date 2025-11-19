@@ -3,7 +3,10 @@ from flask import Blueprint, request, jsonify, send_file
 try:
     from .. import rag as rag_module
 except Exception:
-    import rag as rag_module
+    try:
+        import rag as rag_module
+    except Exception:
+        rag_module = None  # RAG not available, will skip retrieval
 import google.generativeai as genai
 from gtts import gTTS
 import os
@@ -260,7 +263,8 @@ ABSOLUTE RULE: Respond ONLY in {lang_name}. Zero English words allowed. Use {lan
         # Retrieve supporting docs (RAG) if available and add as context
         retrieved = []
         try:
-            retrieved = rag_module.retrieve(user_input, k=3) if hasattr(rag_module, 'retrieve') else []
+            if rag_module and hasattr(rag_module, 'retrieve'):
+                retrieved = rag_module.retrieve(user_input, k=3)
         except Exception as e:
             print(f"⚠️ RAG retrieval failed: {e}")
 
