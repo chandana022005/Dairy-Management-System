@@ -29,6 +29,14 @@ import os
 DATABASE_URL = os.getenv('DATABASE_URL', 'mysql+pymysql://root:BEOJvNkZitaZYrqpmEdCZzainncEhAcl@turntable.proxy.rlwy.net:22022/railway')
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URL
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# Add connection pool settings to prevent timeouts
+app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {
+    'pool_pre_ping': True,  # Test connections before using
+    'pool_recycle': 300,     # Recycle connections after 5 minutes
+    'connect_args': {
+        'connect_timeout': 10  # 10 second connection timeout
+    }
+}
 
 # ✅ JWT config
 app.config['JWT_SECRET_KEY'] = 'your-secret-key'
